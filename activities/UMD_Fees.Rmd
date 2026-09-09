@@ -1,4 +1,4 @@
----
+ye---
 title: "UMD Fees"
 ---
 
@@ -33,7 +33,7 @@ umd_fees_pct <- umd_fees |> mutate(pct_change = (`Fall 2026`- `Fall 2021`)/`Fall
 
 Write a few sentences about what you found in those percentages. What's the story here? What questions do you have?
 
-
+#Student sustainability garnered the largest percent change, whilst athletics yielded the lowest.The counseling center fees were also significantly increased, whilst the student union, activities and recreation services increased less significantly. I'd be interested in the uptick of sustainability activity and the divestment of the funds, as well as curious about the lack of percentage change for athletics, since, as a Big 10 school, I'd expect UMD to spend more or at least increase spending on their athletics over the years. The shuttle bus also increased, which makes me curious about what the money went towards and the bus usage at this university.
 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
