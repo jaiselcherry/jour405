@@ -9,6 +9,7 @@ In this assignment, we will be working with a dataset of total crimes reported b
 You will need to load the tidyverse library and the janitor library
 
 ```{r}
+library(tidyverse)
 ```
 
 Then you'll load the data from the web. The URL for the data is: https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/md_cities_crime_2019_2020.csv. You will create a dataframe called `md_cities` that contains the data from this URL.
@@ -16,19 +17,27 @@ Then you'll load the data from the web. The URL for the data is: https://raw.git
 ### Task 2: Load the Data
 
 ```{r}
+md_cities <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/md_cities_crime_2019_2020.csv")
 ```
 ### Task 3: Calculating Rates
 
 Calculate violent and property crime rates for each city for both years using `mutate()`. You'll create four new columns: `violent_rate_2019`, `property_rate_2019`, `violent_rate_2020`, and `property_rate_2020`. You'll need to figure out the proper unit rate, given that there are varying populations. There's no perfect choice; choose the one that works best for you. Save the results to a new dataframe called `md_cities_rates`.
 
 ```{r}
+md_cities_rates <- md_cities |>
+  mutate(
+    violent_rate_2019 = violent2019 / pop2019 * 10000,
+    property_rate_2019 = property2019 / pop2019 * 10000,
+    violent_rate_2020 = violent2020 / pop2020 * 10000,
+    property_rate_2020 = property2020 / pop2020 * 10000
+  )
 ```
 
 ### Task 4: Describe the Rates
 
 Examine the new dataframe, `md_cities_rates`, by clicking on it in the Environment tab in RStudio and sorting by the rate columns. Write a couple of sentences about the results, comparing and contrasting the cities with the highest rates (both violent and property) in 2019 and 2020. Do you see any patterns? What does this tell you about crime in Maryland cities? What's the story here?
 
-ANSWER HERE
+#Ocean City stands out as having particularly high crime rates, while cities like Baltimore and Williamsport have higher rates as well. I notice that the cities with high rates don't necessarily have the highest populations, it's more to do with the ratio of crimes to population. I would focus my story on Ocean City, since it is a popular tourist destination and these crime rates may not include crimes commited by visitors.
 
 
 ### Task 5: Calculate Percentage Change
@@ -36,19 +45,26 @@ ANSWER HERE
 Let's add two percentage change columns to your dataframe: one for violent crime rates and one for property crime rates. You'll calculate the percentage change between 2019 and 2020 for each city. Save the results to a new dataframe called `md_cities_change`.
 
 ```{r}
+md_cities_change <- md_cities_rates |>
+  mutate(
+    violent_change = (violent2020 - violent2019)/violent2019 *100,
+    property_change = (property2020 - property2019)/property2019 *100
+  )
 ```
 
 ### Task 7: Describe Percentage Changes
 
 Look at the `md_cities_change` dataframe by clicking on it in the Environment tab in RStudio. Write a couple of sentences describing the percentage change results. What's more interesting here, the patterns or the outliers? What's the story in the data?
 
-ANSWER HERE
+#I think the story here is about the constrast between the decline of property crime in larger cities and the unstable changes in violent crime. Some percent changes stem from small differences, like in Edmonston, where violent crimes went up 900%, but only increased from 1 to 10.
 
 ### Task 8: Tell the Best Story
 
 Write up a lede and nutgraf of a story with the _best_ story idea you've found in this assignment. The lede should be a single sentence that summarizes the most important information in the data. The nutgraf should be a paragraph that provides more context and explains why the data is important.
 
-ANSWER HERE
+#From 2019 to 2020, property crime declined in many Maryland cities while violent crime showed more uneven changes.
+
+#While many larger cities saw property crime decrease overall, violent crime increased in some cities and decreased in others. However, some of the most dramatic percent changes occurred in areas with little crime, where even a slight increase might yield a massive percent change. Edmonston, for example, reported a 900% increase in violent crime. but the actual number of crime incidents only increased from 1 to 10.
 
 ### Task 9: Save Your Work and Put it on GitHub
 
