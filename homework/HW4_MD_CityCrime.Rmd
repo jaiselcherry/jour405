@@ -69,3 +69,18 @@ Write up a lede and nutgraf of a story with the _best_ story idea you've found i
 ### Task 9: Save Your Work and Put it on GitHub
 
 Save this notebook, then commit it to your local repository. Push the changes to your GitHub repository and submit the URL for this file in ELMS.
+
+#Task 10
+##Take the HW4_MD_CityCrime.Rmd notebook you worked on and add a section at the bottom called Task 10. Your task will be to take the violent crime rates for 2020 and do three things: Using the 2020 violent crime rate, calculate the percentiles using `ntile()`. Save the results to a new dataframe called `md_cities_percentiles`. How many cities are above the 90th percentile? Calculate the Interquartile Range of the 2020 violent crime rate using `summarize()` and R's `IQR()` function. The syntax is similar to how `mean()` works.
+```{r}
+library(tidyverse)
+
+md_cities_percentiles <- md_cities_rates |>
+  mutate(percentile = ntile(violent_rate_2020, 100))
+```
+
+```{r}
+md_cities_percentiles |>
+  summarize(IQR_violent_2020 = IQR(violent_rate_2020))
+```
+##This does not change my story idea. I still think the uneven changes in violent crime is an interesting story. The percentile and IQR results further show how violent crime rates vary across Maryland cities. They also reinforce the importance of looking at the actual number of crimes.
