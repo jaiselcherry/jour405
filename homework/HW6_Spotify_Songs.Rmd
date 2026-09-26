@@ -7,11 +7,13 @@ In this assignment, you will be working with a dataset of songs played on Spotif
 ### Task 1: Load the tidyverse
 
 ```{r}
+library(tidyverse)
 ```
 
 ### Task 2: Load the Spotify Songs dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/spotify_2020.csv
 
 ```{r}
+spotify_songs <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/spotify_2020.csv")
 ```
 
 ### Task 3: Calculate the mean and standard deviation of the danceability scores
@@ -19,6 +21,7 @@ In this assignment, you will be working with a dataset of songs played on Spotif
 Write code to calculate the mean standard deviation of the danceability scores in the Spotify dataset. Display those.
 
 ```{r}
+spotify_songs |> summarize(mean = mean(danceability), sd = sd(danceability))
 ```
 
 ### Task 4: Create a histogram of the danceability scores
@@ -26,6 +29,10 @@ Write code to calculate the mean standard deviation of the danceability scores i
 Write code to create a histogram of the danceability scores in the Spotify dataset, based on the example we did in class.
 
 ```{r}
+spotify_songs |>
+  ggplot(aes(x = danceability)) +
+  geom_histogram(binwidth = 0.05)
+  )
 ```
 
 ### Task 5: Add a line to the histogram for the mean danceability score
@@ -33,11 +40,22 @@ Write code to create a histogram of the danceability scores in the Spotify datas
 Write code to add a vertical line to the histogram for the mean danceability score, based on the example in class.
 
 ```{r}
+spotify_songs |>
+  ggplot(aes(x = danceability)) +
+  geom_histogram(binwidth = 0.05) +
+  geom_vline(
+    xintercept = mean(spotify_songs$danceability),
+    color = "red",
+    linetype = "dashed",
+    linewidth = 1
+  )
 ```
 
 ### Task 6: Describe our results
 
 Write a few sentences about the distribution of danceability scores in the Spotify dataset. Is it a normal distribution, or is it skewed in one direction? What does the mean and distribution tell us about the songs in the dataset?
+
+#I would say the distribution is fairly normal, if a bit left skewed. Majority of the data lies within two standard deviations of the mean, but there is a tail, or tapering of data, on the left size. This tells us that of the songs in the dataset  few have very low danceability scores. Overall, this means that most songs in the dataset are relatively danceable, while a smaller number are less danceable.
 
 ### Task 7: Save Your Work and Put it on GitHub
 
