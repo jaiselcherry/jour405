@@ -32,7 +32,7 @@ library(lubridate)  # For working with dates
 Load the accident data from our CSV file at https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/daily_accidents.csv into a dataframe called `accidents`:
 
 ```{r load-data}
-
+accidents <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/daily_accidents.csv")
 ```
 
 ## Data Exploration
@@ -68,7 +68,7 @@ ggplot(accidents, aes(x = date, y = total)) +
 ### Task 2 (3 points)
 Looking at the time series visualization above, identify at least two noticeable patterns or anomalies. What questions would you want to investigate further based on this initial view of the data? How might these visual patterns translate into potential story angles?
 
-ANSWER HERE
+#I see a massive drop in 2020, likely due to the pandemic and quarantine. I also see a large spike around early 2022, which I would like to investigate further. The most dramatic shifts/fluctuations in the graph wouold liekly make for the best story angles. 
 
 The daily data is quite noisy, so let's also look at weekly patterns:
 
@@ -107,7 +107,7 @@ ggplot(accidents, aes(x = day_of_week, y = total)) +
 ### Task 3 (2 points)
 Based on the day-of-week analysis, which day(s) have the highest and lowest average accidents? Why might these patterns exist?
 
-ANSWER HERE
+#Friday, Saturday and Sunday have the highest daily averages, likely due to people being off work and going out at night/during the day. The rest of days have lower averages, due to them being weekdays and people working more.
 
 ## Calculating Z-Scores
 
@@ -119,9 +119,9 @@ Now, using the accidents dataframe, add three columns using `mutate()`: mean_acc
 # Calculate z-scores for total accidents
 accidents <- accidents |>
   mutate(
-    mean_accidents = REPLACE_ME,
-    sd_accidents = REPLACE_ME,
-    z_score = (REPLACE_ME - REPLACE_ME) / REPLACE_ME
+    mean_accidents = mean(total),
+    sd_accidents = sd(total),
+    z_score = (total - mean_accidents) / sd_accidents
   )
 
 # Display the data with z-scores
@@ -156,7 +156,7 @@ unusual_days |>
 ### Task 5 (3 points)
 Choose one of the top 10 unusual days and research what might have happened on that date. Look for weather events, holidays, major incidents, or other factors that could explain the unusual number of accidents. Briefly describe your findings and how you would incorporate this context into a story.
 
-ANSWER HERE
+#On October 29, 2021, Maryland experienced major flooding and a ssevere storm. This anomaly no doubt dontributed to the unusual number of accidents on that date, and I would use this information to better contextualize the data in a story.
 
 Let's visualize these unusual days:
 
@@ -186,9 +186,9 @@ Let's calculate z-scores that account for day of week patterns based on the same
 accidents <- accidents |>
   group_by(day_of_week) |>
   mutate(
-    dow_mean = REPLACE_ME,
-    dow_sd = REPLACE_ME,
-    dow_z_score = (REPLACE_ME - REPLACE_ME) / REPLACE_ME
+    dow_mean = mean(total),
+    dow_sd = sd(total),
+    dow_z_score = (total - dow_mean) / dow_sd
   ) |>
   ungroup()
 
@@ -207,7 +207,7 @@ unusual_dow |>
 ### Task 7 (3 points)
 Compare the days that have extreme z-scores overall versus those with extreme day-of-week z-scores. How do these lists differ? What journalistic insights can you draw from comparing these two different approaches to measuring "unusual" days?
 
-ANSWER HERE
+#Friday still has a significant number of accidents, which makes sense because of people going out at night, and Saturday and Sunday also have highest Z scores. The Z scores can tell us how far the number of accidents on a given day differs from the mean amount, which can tell us how much of an outlier extreme data is.
 
 Let's see how many unusual days we have for each day of the week:
 
@@ -286,7 +286,7 @@ unusual_monthly |>
 ### Task 8 (2 points)
 Based on the monthly pattern analysis, which months have the highest and lowest average accidents? Develop a hypothesis about why these seasonal patterns exist.
 
-ANSWER HERE
+#October and December have high average accidents, but so does May. January and March have the lowest averages. I hypothesize that a lot of crime happens during Halloween/spooky season, since people are out after dark, and I also think that in December, weather and road conditions are more hazardous, causing more accidents. 
 
 ## Identifying Extreme Outliers
 
@@ -311,9 +311,14 @@ if(nrow(extreme_outliers) > 0) {
 ### Task 9 (2 points)
 For the extreme outliers identified (z-scores beyond ±3), what do they have in common?
 
-ANSWER HERE
+#They all have either more than 45 accidents or less than 4. Most of the extreme outliers have been on Fridays and Saturdays, and the lowest outlier was on a Monday.
 
 ## Your Best Story Pitch
+#Headline: When are Prince George's County roads the most dangerous?
+
+#Accidents in Prince George’s County don’t occur on a regular basis. An analysis of daily accidents shows higher  averages on Fridays and weekends, while a handful of days stand out as outliers.
+
+#I would use the accident data for a story on what causes certain days to become statisticall more dangerous. I would examine patterns from the homework, like days of the week and month, then look at the most extreme outliers to determine what actually happened those days. Based on the findings, Fridays and weekends can be particularly dangerous, as can any day surrounding extreme weather. I could interview police and transportation officials, as well as people involved in the accidents.
 
 ### Task 10 (5 points)
 Based on all the analyses performed, craft your best story pitch, including a headline and lede. Be sure to include what kinds of sources/people you'd talk to for the story.
