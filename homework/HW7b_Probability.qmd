@@ -9,6 +9,8 @@ In this assignment, you'll build on your z-score skills to answer probability qu
 Load the tidyverse and the White House salaries data from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/white_house_salaries_2025.csv into a dataframe called `wh_salaries`
 
 ```{r}
+library(tidyverse)
+wh_salaries <- read.csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/white_house_salaries_2025.csv")
 ```
 
 ### Task 2: Filter and summarize (2 points)
@@ -19,6 +21,13 @@ You may remember from HW3 that some White House staffers have a salary of $0. Le
 wh_paid <- wh_salaries |>
   filter(SALARY > 0)
 
+mean_salary <- mean(wh_paid$SALARY)
+median_salary <- median(wh_paid$SALARY)
+sd_salary <- sd(wh_paid$SALARY)
+
+mean_salary
+median_salary
+sd_salary
 
 
 ```
@@ -26,11 +35,19 @@ wh_paid <- wh_salaries |>
 Now create a histogram of the paid salaries with a vertical line for the mean and two more for ±1 standard deviation, similar to what you did in HW6 with Spotify data.
 
 ```{r}
+ggplot(wh_paid, aes(x = SALARY)) +
+  geom_histogram(binwidth = 10000, color = "white") +
+  geom_vline(xintercept = mean_salary, linewidth = 1) +
+  geom_vline(xintercept = mean_salary - sd_salary,
+             linetype = "dashed") +
+  geom_vline(xintercept = mean_salary + sd_salary,
+             linetype = "dashed") 
+  )
 ```
 
 **Describe the shape of the distribution. Is it roughly normal? Skewed? Where do most salaries cluster?**
 
-ANSWER HERE
+#The data is not uniform, but is fairly right skewed. Most salaries cluster between 50,000 and 100,000.
 
 ### Task 3: The Empirical Rule (3 points)
 
@@ -64,7 +81,7 @@ empirical
 
 **How closely does the data follow the empirical rule? What does any deviation tell you about the distribution?**
 
-ANSWER HERE
+I would say it follows the rule pretty closely. 65.9% falls within 1 sd, as opposed to the expected 68%, 91.2% falls within 2 sd as opposed to the expected 95%, and 100% falls within 3 as opposed to the expected 99.7%.
 
 ### Task 4: From z-scores to probability with pnorm() (4 points)
 
@@ -102,7 +119,7 @@ actual_prob
 
 **Write a sentence describing this probability in plain English. How does the normal approximation (prob_less) compare to the actual percentage?**
 
-ANSWER HERE
+# There is a 16.8% chance the salary falls under the normal curve to the left of the z-score. In actuality, 18.2% of values fall ther.
 
 ### Task 5: Probability between two values (3 points)
 
@@ -112,21 +129,21 @@ You'll need to calculate z-scores for those two figures, use `pnorm()` for each,
 
 ```{r}
 
-z_lower <- (REPLACE_ME - mean_sal) / sd_sal
-z_upper <- (REPLACE_ME - mean_sal) / sd_sal
+z_lower <- (80000 - mean_sal) / sd_sal
+z_upper <- (120000 - mean_sal) / sd_sal
 
 prob_between <- pnorm(z_upper) - pnorm(z_lower)
 prob_between
 
 # Verify with actual data
-actual_between <- sum(wh_paid$SALARY >= REPLACE_ME & wh_paid$SALARY <= REPLACE_ME) / total_n
+actual_between <- sum(wh_paid$SALARY >= 80000 & wh_paid$SALARY <= 120000) / total_n
 actual_between
 
 ```
 
 **Interpret this result. What does this "middle range" tell us about the White House salary structure?**
 
-ANSWER HERE
+#There is a 36.6% chance a salary lies between those numbers. In actuality, 32.6% of salaries lie ther.
 
 ### Task 6: Expected vs. observed (3 points)
 
@@ -158,7 +175,7 @@ bins |> select(category, expected_count, observed_count, difference)
 
 **Where does reality differ most from what the normal distribution predicts? What might explain those differences?**
 
-ANSWER HERE
+#It differs the most at to $60k to $90 range, as the difference is 73. One reason could be salaries clustered into specific ranges based on the most common White House jobs rather than a perfectly normal distribution of salaries.
 
 ### Task 7: Story pitch (4 points)
 
@@ -166,7 +183,11 @@ Based on your probability analysis, write a headline and lede for a story about 
 
 Then write 2-3 sentences describing how you would use probability thinking to advance this story — what could you compare these probabilities to, and what additional analysis would help?
 
-ANSWER HERE
+#White House salaries cluster in $60-90k range
+
+#Data shows that White House employees are more likely to earn between $60,000 and $90,000 than a normal distribution of salaries predicts. Of the 396 employees, 151, or 38%, fall into that range, compared with an expected number of 78 employees, or  20%, making it the largest deviation from the norm among the five salary categories.
+
+
 
 ### Task 8: Save Your Work and Put it on GitHub
 
