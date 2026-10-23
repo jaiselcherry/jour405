@@ -41,7 +41,7 @@ sleep_stats
 
 **Answer this question:** Based on these numbers alone, what would you tell the health reporter? Why might it be risky to report the average as the definitive answer for all students?
 
-ANSWER HERE
+I would say that student sleep habits are highly variable and cannot reliably be predicted from averages because they deviate so much. People have different schedules and things like exams and going out can seriously affect students' sleep. 
 
 ### Task 3: Calculate the standard error
 
@@ -58,7 +58,7 @@ sleep_stats
 
 **Answer this question:** The standard error is much smaller than the standard deviation. Why? What does each one measure?
 
-ANSWER HERE
+Standard deviation and standard error both measure variability in statistics, but standard error measures the precision of a statistic and the standard deviation measures the amount of variation in data points.
 
 ### Task 4: Calculate a 95% confidence interval
 
@@ -79,7 +79,7 @@ sleep_stats |>
 
 **Answer this question:** Write one sentence explaining what this confidence interval means in plain English that a reader would understand.
 
-ANSWER HERE
+We can be 95% confident that the average number of hours students sleep falls between 7.28 and 8.18 hours.
 
 ### Task 5: Visualize the distribution with the confidence interval
 
@@ -112,7 +112,7 @@ ggplot(sleep_data, aes(x = hours)) +
 
 **Answer this question:** Look at the chart. Notice that the confidence interval is much narrower than the spread of individual data points. Why? What's the difference between the variation in individual sleep hours and the uncertainty about the average?
 
-ANSWER HERE
+The confidence interval is narrower because it estimates the uncertainty of the mean, not the variability of data points like the standard deviation.
 
 ### Task 6: The CDC question — is 7 hours within the interval?
 
@@ -134,7 +134,7 @@ sleep_stats |>
   b) "Students May Not Be Getting Enough Sleep, Survey Suggests"
   c) "Survey: Students Getting Recommended Amount of Sleep"
 
-ANSWER HERE
+A
 
 ### Task 7: What about a bigger sample?
 
@@ -167,7 +167,7 @@ comparison
 
 **Answer this question:** How did the margin of error change? What does this tell you about the relationship between sample size and certainty?
 
-ANSWER HERE
+As sample size increased from 37 to 100, margin of error decreased from 0.45 to 0.27. This shows that larger sample sizes garner smaller margins of error.
 
 ### Task 8: Journalistic interpretation
 
@@ -175,4 +175,4 @@ You now have all the statistics you need. Based on what you've calculated:
 
 Write a headline and a one-paragraph lede for a campus news story about student sleep habits. Your text should accurately reflect the confidence interval — don't overstate or understate the findings.
 
-ANSWER HERE
+Study reveals university students get recommended amount of sleep
