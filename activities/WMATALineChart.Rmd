@@ -57,5 +57,4 @@ weekly_wmata |>
 ```
 
 **Answer this question:** Describe the trend you see. Is ridership going up, down, or staying flat? What are the big dips, and what might explain them? What would you want to know before writing a story about Metro weekly ridership trends?
-
-ANSWER HERE
+#I see ridership going up in the long term. Obviously it's fluctuating and not a smooth increase, but the dotted line helps me see the larger trend. Before writing a story about weekly ridership trends, I might want to know what caused the large drops, such as if there were fare changes, as well as how these number compare to previous years.
