@@ -1,0 +1,189 @@
+---
+title: "Final Project"
+author: "Jaisel Cherry"
+date: "2026-11-10"
+output: html_document
+---
+
+# Research Question
+
+Do colleges with higher tuition rates have higher graduation rates?
+
+For my final project, I want to investigate whether there is a relationship between college tuition costs and graduation rates in the United States.
+
+I am interested in whether students attending more expensive colleges are more likely to graduate than students attending less expensive colleges.
+
+# Hypotheses
+
+My hypothesis is that colleges with higher tuition rates will generally have higher graduation rates.
+
+# Data Source
+
+I plan to use the U.S. Department of Education's College Scorecard dataset.
+
+Data website:
+https://collegescorecard.ed.gov/data/
+
+Documentation:
+https://collegescorecard.ed.gov/data/data-documentation/
+
+The College Scorecard contains institution-level information about colleges in the United States, including tuition, graduation rates, enrollment, and institutional characteristics.
+
+I will begin with the most recent institution-level data and investigate which academic years are represented by my selected variables.
+
+```{r}
+
+install.packages("tidyverse")
+
+```
+
+```{r}
+college_data <- read.csv("Most-Recent-Cohorts-Institution.csv")
+```
+
+
+```{r}
+
+# Select your original College Scorecard file
+file_path <- file.choose()
+
+# Read only the first row to get column names
+column_names <- names(read.csv(file_path, nrows = 1))
+
+# Choose the columns needed for the project
+keep_columns <- c(
+  "UNITID",
+  "INSTNM",
+  "STABBR",
+  "CONTROL",
+  "PREDDEG",
+  "HIGHDEG",
+  "TUITIONFEE_IN",
+  "TUITIONFEE_OUT",
+  "C150_4",
+  "UGDS",
+  "ADM_RATE"
+)
+
+# Skip all other columns
+column_types <- ifelse(
+  column_names %in% keep_columns,
+  NA,
+  "NULL"
+)
+
+# Load only the selected columns
+college_data <- read.csv(
+  file_path,
+  colClasses = column_types,
+  na.strings = c("NA", "NULL", "PS", "")
+)
+
+# Check that the data loaded
+dim(college_data)
+head(college_data)
+
+```
+
+
+```{r}
+write.csv(
+  college_data,
+  "college_data.csv",
+  row.names = FALSE
+)
+
+# Check its size in MB
+file.info("college_data.csv")$size / 1024^2
+
+```
+
+```
+##For my project, I am using data from the College Scorecard, which has information about colleges and universities across the United States. My research question is whether colleges with higher tuition rates also have higher graduation rates.
+
+When I opened the dataset, I found that it has 6,272 rows and 3,379 columns, so there is a lot more information than I will actually need. Each row represents a college or institution, and the columns include things like the school's name, location, tuition, graduation rates, enrollment and other characteristics.
+
+The file is called "Most Recent Cohorts," so I believe it includes the most recently available information for each school rather than data from multiple years. I am still a little unsure about the exact years the different numbers come from, especially since graduation rates are based on students who started college several years earlier.
+
+The main thing I want to figure out is whether there is a relationship between how much a college costs and how many students graduate. I think this dataset should help me answer that, although I will probably need to narrow it down to certain types of colleges first.
+```
+
+
+```{r}
+# Load the package
+library(tidyverse)
+
+# Read my data
+college_data <- read_csv("college_data.csv")
+
+# Look at the first few rows
+head(college_data)
+
+# See how many rows and columns there are
+dim(college_data)
+
+# Look at the column names
+names(college_data)
+
+# See what kind of information is in each column
+glimpse(college_data)
+
+# Get a summary of the data
+summary(college_data)
+```
+
+```
+
+```{r}
+
+## Important Variables
+
+My smaller dataset contains 11 columns. Each row represents one college or institution.
+
+The most important columns for my research are:
+
+- UNITID: Unique identification number for each institution.
+- INSTNM: Name of the college or university.
+- STABBR: State where the institution is located.
+- CONTROL: Whether the institution is public, private nonprofit, or private for-profit.
+- PREDDEG: Predominant degree offered by the institution.
+- HIGHDEG: Highest degree offered by the institution.
+- TUITIONFEE_IN: In-state tuition and required fees.
+- TUITIONFEE_OUT: Out-of-state tuition and required fees.
+- C150_4: Graduation rate for four-year degrees within 150% of normal time, generally six years.
+- UGDS: Undergraduate enrollment.
+- ADM_RATE: Admission rate.
+
+The two most important variables for my research are TUITIONFEE_IN and C150_4 because they allow me to compare tuition costs and graduation rates.
+
+CONTROL is also important because I want to examine whether public and private institutions have different patterns.
+
+ADM_RATE and UGDS may help explain why graduation rates differ between colleges.
+
+I will likely focus on four-year institutions because graduation rates are measured differently for different types of schools.
+
+
+```
+
+
+```{r}
+
+```{r}
+# Check missing values
+college_data %>%
+  summarise(
+    missing_tuition = sum(is.na(TUITIONFEE_IN)),
+    missing_graduation = sum(is.na(C150_4)),
+    missing_admission = sum(is.na(ADM_RATE))
+  )
+```
+
+
+
+```{r}
+{r setup, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+```
+
