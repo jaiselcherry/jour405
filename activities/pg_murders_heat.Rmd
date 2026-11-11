@@ -1,5 +1,6 @@
 ---
 title: "PG Murders and Heat"
+Jaisel Cherry
 ---
 
 Remember how we talked about people killing each other more when it's hot outside? Let's explore that relationship using homicide and temperature data from Prince George's County. You'll load the data, perform some basic statistical analysis, and create a scatterplot to explore the relationship. Follow the steps below to complete the assignment.
