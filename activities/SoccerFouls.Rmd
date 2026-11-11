@@ -14,14 +14,14 @@ library(tidyverse)
 ### Task 2: Load the soccer dataset from https://raw.githubusercontent.com/dwillis/NCAAWomensSoccerData/refs/heads/main/data/ncaa_womens_soccer_matchstats_2026.csv
 
 ```{r}
-matches26 <- read_csv("https://raw.githubusercontent.com/dwillis/NCAAWomensSoccerData/refs/heads/main/data/ncaa_womens_soccer_matchstats_2026.csv")
+matches25 <- read_csv("https://raw.githubusercontent.com/dwillis/NCAAWomensSoccerData/refs/heads/main/data/ncaa_womens_soccer_matchstats_2025.csv") |> filter(!is.na(fouls), !is.na(team_score), !is.na(opponent_score))
 ```
 
 
 ### Task 3: Create a new column called `goal_diff` that calculates the difference between the two teams' goals.
 
 ```{r}
-matches <- matches |> mutate(goal_diff = team_score - opponent_score)
+matches25 <- matches25 |> mutate(goal_diff = team_score - opponent_score)
 ```
 
 
@@ -29,7 +29,7 @@ matches <- matches |> mutate(goal_diff = team_score - opponent_score)
 ### Task 4: Use `summarize()` and the `cor()` function to calculate the correlation between fouls and goal differential, using the pearson method.
 
 ```{r}
-matches |> summarize(correlation = cor(fouls, goal_diff, method="pearson"))
+matches25 |> summarize(correlation = cor(fouls, goal_diff, method="pearson"))
 ```
 
 
@@ -38,7 +38,7 @@ matches |> summarize(correlation = cor(fouls, goal_diff, method="pearson"))
 
 ```{r}
 
-matches |> 
+matches25 |> 
   ggplot() +
   geom_point(aes(x=goal_diff, y=fouls)) +
   geom_smooth(aes(x=goal_diff, y=fouls), method="lm")
@@ -48,6 +48,6 @@ matches |>
 
 
 ### Task 6: Describe the results of both the correlation calculation and the scatterplot.
-
+There appears to be very little correlation between the two variables. Using the cor function, we get a value of 0.02, which is very small and tells us that the correlation is as well. Then, the scatterplot confirms this for us as we see many of the dots distant from the line of best fit. 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
