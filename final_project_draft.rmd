@@ -4,6 +4,25 @@ author: "Jaisel Cherry"
 date: "2026-11-10"
 output: html_document
 ---
+#Tests I Plan to Do
+
+Analyses I Plan to Use
+
+1. Simple Descriptive Statistics
+
+I will  calculate the mean, median, minimum, maximum and standard deviation for tuition costs and graduation rates. This will help me get a better understanding of my data and see how much the numbers vary between colleges.
+
+2. Correlation
+
+I think correlation will be one of the most important tests for my project because my main question is whether tuition and graduation rates are related. Similar to our correlation activity, I want to calculate the correlation coefficient to see how strong the relationship is and whether it is positive or negative. I will also create a scatterplot to reinforce the calculation.
+
+3. Effect Size
+
+I am unsure if this one would apply, but in the effect size activity, we learned that statistical significance does not always mean a difference is actually important. If I compare public and private colleges using a t-test, I could also calculate Cohen's d to see how large the difference in graduation rates actually is. This would help me explain whether the difference is meaningful rather than just statistically significant.
+
+4. Hypothesis Testing
+
+My null hypothesis would be that there is no relationship between tuition and graduation rates, while my alternative hypothesis would be that higher tuition is associated with higher graduation rates. I could use the p-values from my correlation or regression tests to determine whether I have enough evidence to reject the null hypothesis.
 
 # Research Question
 
@@ -40,7 +59,7 @@ install.packages("tidyverse")
 ```{r}
 college_data <- read.csv("Most-Recent-Cohorts-Institution.csv")
 ```
-
+##When I first tried to import the data, it said it was too big for R, so I asked an LLM how I might go about getting around that. 
 
 ```{r}
 
