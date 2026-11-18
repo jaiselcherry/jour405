@@ -32,7 +32,7 @@ schools |> arrange(`FARMS Pct`) |> head(10)
 
 Look at the distribution of FARMS percentages. Do any values look unusual or suspicious? What might it mean if a school has a FARMS percentage of exactly 100? Write two or three sentences describing what you see and whether anything concerns you.
 
-ANSWER HERE
+The mean is higher than the median, which suggests that the data is skewed by high outliers that pull the average up. If a school has 100% of students on the FARMS program, it means that all of the students have reduced price lunches. Also, the schools with 100% seem to be doing well with their math scores. There is also a gap in between the school with 54% FARMS enrollment and the one with 100% and the lower schools are pretty compact.
 
 
 ### Task 2: Create a Scatterplot and Describe the Results
@@ -50,7 +50,7 @@ schools |>
 
 Describe what you see. Is there a clear trend? Does the regression line look like it represents the data well, or does it seem to be pulled in an odd direction? Connect what you observed in Task 1 to what you see here.
 
-ANSWER HERE
+I don't really see any correlation between the two variables. There is a lot clustered at the far upper end and the data at the lower end is much more spread out. The regression line does not fit and overall I would say there is little to no relationship between the variables.
 
 
 ### Task 3: Run the Regression Model
@@ -68,7 +68,7 @@ The **p-value** tells you whether the relationship is statistically significant.
 
 Report all three values and describe what they tell you. Does this model support the school board member's claim? Is this even a model worth using?
 
-ANSWER HERE
+The model does not produce statistically significant results. It means that there is a chance we would see the exact same results/data by random chance. The adjusted r-squared is 0.0254 and tells us how much of the math percentage the FARMS enrollment actually counts for, and it explains about 2.5% of the math score. The p value is 0.1225 and the FARMS pct coefficient is 0.12349. I would say the model does not support the board member's claim and is not worth using.
 
 
 ### Task 4: What's Driving the Problem? Filter and Rerun.
@@ -98,7 +98,7 @@ cat("  Adjusted R-squared:", summary(model_filtered)$adj.r.squared, "\n")
 
 How did removing those schools change the model? Did the coefficient change direction? Did the p-value or R-squared improve meaningfully? What does this tell you about the influence of suspicious data values on a regression model?
 
-ANSWER HERE
+The coefficient increased from about 0.12 to 0.4 , meaning the relationship became more positive rather than changing direction. This still goes against the school board member's claim. Even if the p-value and R-squared improved, the model remains weak
 
 
 ### Task 5: Even the Better Model Has Problems
@@ -132,7 +132,7 @@ head(schools_filtered |> select(1, `FARMS Pct`, `% Met or Exceeded Math Expectat
 
 What are the largest residuals? Given the model's weak R-squared, how much confidence would you have in labeling these schools as over- or under-performers? Why?
 
-ANSWER HERE
+The dots are spread out and many are far from the regression line, showing that the model does not predict math scores very accurately. Because the R-squared is so low, I would not feel confident labeling schools as overperformers or underperformers based on these residuals alone.
 
 
 ### Task 6: Write the Story Pitch
@@ -141,4 +141,4 @@ You've now run two models, examined the data quality and seen that even a cleane
 
 Write a short story pitch (3-5 sentences) that addresses the following: Does the data support or contradict the claim? What data quality issues did you find? What would you need - different data, a different model, additional reporting - before you could responsibly publish a story about this claim? Who would you call first?
 
-ANSWER HERE
+The data does not support the school board member's claim. Some schools reported  100% FARMS enrollment, which could indicate a reporting issue and may have affected the results. Even after removing these schools, the model still explained very little of the math scores. Before publishing, I would want to look at other factors that affect test scores and verify the data. I would  contact the school district to ask about the unusual FARMS percentages before pitching a story about them.
