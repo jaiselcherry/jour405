@@ -4,6 +4,9 @@ author: "Jaisel Cherry"
 date: "2026-11-10"
 output: html_document
 ---
+#Errors and Trials/Testing
+
+The main error messages I got were when I tried to run all of the code at once. I got multiple messages saying "Error in mean(graduation_rate) : object 'graduation_rate' not found" and similar and I think it means I didn't load the data correctly and therefore my variables are not able to be located. I also got an error saying "cannot open file 'Most-Recent-Cohorts-Institution.csv': No such file or directory" , which I think means I didn't download things correctly. I found out I was missing a character in my code. Overall, I think my results indicate a somewhat strong, positive relationship between tuition rates and graduation rates, which is most clearly illustrated by my scatterplot and correlation of 0.5. Here is the link to my llm chat: https://chatgpt.com/share/6b04fa7c-ca44-83e8-8c50-8b7babe52fd4 
 #Tests I Plan to Do
 
 Analyses I Plan to Use
@@ -52,14 +55,11 @@ I will begin with the most recent institution-level data and investigate which a
 
 ```{r}
 
-install.packages("tidyverse")
+library("tidyverse")
 
 ```
 
-```{r}
-college_data <- read.csv("Most-Recent-Cohorts-Institution.csv")
-```
-##When I first tried to import the data, it said it was too big for R, so I asked an LLM how I might go about getting around that. 
+#When I originally tried to import the data, R said it was too big so I asked an LLM for help and how I might go about fixing that.
 
 ```{r}
 
@@ -129,25 +129,17 @@ The main thing I want to figure out is whether there is a relationship between h
 
 
 ```{r}
-# Load the package
-library(tidyverse)
 
-# Read my data
+library(tidyverse)
 college_data <- read_csv("college_data.csv")
 
-# Look at the first few rows
 head(college_data)
-
-# See how many rows and columns there are
 dim(college_data)
 
-# Look at the column names
 names(college_data)
 
-# See what kind of information is in each column
 glimpse(college_data)
 
-# Get a summary of the data
 summary(college_data)
 ```
 
@@ -188,7 +180,6 @@ I will likely focus on four-year institutions because graduation rates are measu
 ```{r}
 
 ```{r}
-# Check missing values
 college_data %>%
   summarise(
     missing_tuition = sum(is.na(TUITIONFEE_IN)),
@@ -197,6 +188,77 @@ college_data %>%
   )
 ```
 
+```{r}
+college_clean %>%
+  summarise(
+    mean_tuition = mean(TUITIONFEE_IN),
+    median_tuition = median(TUITIONFEE_IN),
+    min_tuition = min(TUITIONFEE_IN),
+    max_tuition = max(TUITIONFEE_IN),
+    sd_tuition = sd(TUITIONFEE_IN)
+  )
+```
+
+
+```{r}
+
+college_clean %>%
+  summarise(
+    mean_graduation = mean(graduation_rate),
+    median_graduation = median(graduation_rate),
+    min_graduation = min(graduation_rate),
+    max_graduation = max(graduation_rate),
+    sd_graduation = sd(graduation_rate)
+  )
+```
+
+
+
+```{r}
+
+ggplot(college_clean, aes(x = TUITIONFEE_IN)) +
+  geom_histogram(bins = 30, fill = "blue", color = "white") +
+  labs(
+    title = "Distribution of College Tuition",
+    x = "Annual Tuition ($)",
+    y = "Number of Colleges"
+  )
+```
+
+```{r}
+
+ggplot(college_clean, aes(x = graduation_rate)) +
+  geom_histogram(bins = 30, fill = "green", color = "white") +
+  labs(
+    title = "Distribution of College Graduation Rates",
+    x = "Graduation Rate (%)",
+    y = "Number of Colleges"
+  )
+```
+
+```{r}
+
+cor(college_clean$TUITIONFEE_IN,
+    college_clean$graduation_rate)
+```
+
+
+```{r}
+
+
+ggplot(college_clean,
+       aes(x = TUITIONFEE_IN, y = graduation_rate)) +
+  geom_point(alpha = 0.4, color = "blue") +
+  geom_smooth(method = "lm", color = "red") +
+  labs(
+    title = "Relationship Between Tuition and Graduation Rates",
+    x = "Annual Tuition ($)",
+    y = "Graduation Rate (%)"
+  ) +
+  theme_minimal()
+```
+
+```
 
 
 ```{r}
